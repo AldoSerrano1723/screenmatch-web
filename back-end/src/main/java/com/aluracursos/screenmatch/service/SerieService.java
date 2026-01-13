@@ -2,6 +2,7 @@ package com.aluracursos.screenmatch.service;
 
 import com.aluracursos.screenmatch.dto.EpisodioDTO;
 import com.aluracursos.screenmatch.dto.SerieDTO;
+import com.aluracursos.screenmatch.model.Categoria;
 import com.aluracursos.screenmatch.model.Episodio;
 import com.aluracursos.screenmatch.model.Serie;
 import com.aluracursos.screenmatch.repository.SerieRepository;
@@ -87,6 +88,15 @@ public class SerieService {
                         episodio.getNumeroEpisodio()
                 ))
                 .collect(Collectors.toList());
+
+    }
+
+    public List<SerieDTO> obtenerSeriesPorCategoria(String nombreGenero) {
+        var categoria = Categoria.fromEspanol(nombreGenero);
+        return convierteDatos(repository.findByGenero(categoria));
+    }
+
+    public List<EpisodioDTO> obtenerTop5Episodios(Long id) {
 
     }
 }
