@@ -10,6 +10,5 @@ public record SerieDTO(
         String poster,
         Categoria genero,
         String actores,
-        String sinopsis
-        ) {
+        String sinopsis) {
 }
