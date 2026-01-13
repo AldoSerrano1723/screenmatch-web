@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -27,9 +28,10 @@ public class SerieService {
         return convierteDatos(repository.lanzamientosMasRecientes());
     }
 
-    private List<SerieDTO>  convierteDatos (List<Serie> series){
+    private List<SerieDTO> convierteDatos (List<Serie> series){
         return series.stream()
                 .map(serie -> new SerieDTO(
+                        serie.getId(),
                         serie.getTitulo(),
                         serie.getTotalTemporadas(),
                         serie.getEvaluacion(),
@@ -39,5 +41,22 @@ public class SerieService {
                         serie.getSinopsis()
                 ))
                 .collect(Collectors.toList());
+    }
+
+    public SerieDTO obtenerPorId(Long id){
+         Optional<Serie> serie = repository.findById(id);
+         if (serie.isPresent()){
+             Serie s = serie.get();
+             return new SerieDTO(s.getId(),
+                     s.getTitulo(),
+                     s.getTotalTemporadas(),
+                     s.getEvaluacion(),
+                     s.getPoster(),
+                     s.getGenero(),
+                     s.getActores(),
+                     s.getSinopsis());
+         } else {
+             return null;
+         }
     }
 }

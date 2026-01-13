@@ -12,6 +12,8 @@ import java.util.Optional;
 // <Serie, Long> indica: <Entidad a manejar, Tipo de dato del ID>
 public interface SerieRepository extends JpaRepository<Serie, Long> { // ¡Listo! Al extender de JpaRepository, ya tenemos métodos como save(), findAll(), etc.
 
+    Optional<Serie> findById(Long id);
+    
     Optional<Serie> findByTituloContainsIgnoreCase(String nombreSerie);
 
     List<Serie> findTop5ByOrderByEvaluacionDesc();
